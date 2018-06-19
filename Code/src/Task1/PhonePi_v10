@@ -101,7 +101,7 @@ def echo_socket(ws):
 				waiting = False
 #######################
 		if cycle:
-                	if ((Gtime > 5.0) & c):
+                	if ((Gtime > 3.0) & c):
 				f.close()
 				os.remove(fileName)
 				c = False
