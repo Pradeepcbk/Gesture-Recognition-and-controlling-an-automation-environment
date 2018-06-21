@@ -10,3 +10,12 @@ for n in range(0, code.number_of_training_samples):
             for j in range(0, code.number_of_features):
                 X[n, feature_count] = code.gesture[n, a, i, j]
                 feature_count = feature_count + 1
+
+X = [][]
+
+for value in sheet.col_values(i):
+    ax.append(value)
+Ax = np.array(ax)
+
+Y = np.empty(no_of_gestures, dtype=float)
+Y = ["UP", "DOWN", "RIGHT", "LEFT"]
