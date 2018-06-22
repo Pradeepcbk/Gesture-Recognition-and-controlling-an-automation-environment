@@ -96,9 +96,10 @@ def echo_socket(ws):
 				waiting = False
 #######################
 		if cycle:
-                	if ((Gtime > 5.0) & c):
+                	if ((Gtime > 6.0) & c):
 				f.close()
 				os.remove(fileName)
+				i=i-1
 				c = False
 				cycle = False
 				waiting = False
@@ -111,7 +112,7 @@ def echo_socket(ws):
 				
 			else:
 				if not c:
-					fileName = "ACC"+ str(i)+".csv"
+					fileName = "ACC_"+ str(i+67)+".csv"
 					i =i + 1
 					if os.path.isfile(fileName) == False:
 						f=open(fileName,"w+")
@@ -121,6 +122,8 @@ def echo_socket(ws):
 						numReadings = 1
 					else:
 						print("PLEASE REMOVE EXISTING FILES")
+	
+
 				else:
 					if os.path.isfile(fileName) == True:
 						f=open(fileName,"a")
@@ -132,7 +135,6 @@ def echo_socket(ws):
 			if c:
 				if ((numReadings - 140) >= 200):
 					f.close()
-					i = i+1
 					c = False
 					print("Gesture Saved Successfully\nTotal Number of Useful Readings =%4d  (@Gtime=%.2fs)\n\nTOTAL No of Recorded Gestures = %4d  \n\n" % ((numReadings - 140),Gtime,i))
 					say = str(i)
@@ -142,6 +144,7 @@ def echo_socket(ws):
 				else:
 					f.close()
 					os.remove(fileName)
+					i=i-1
 					c = False
 					blocked = True
 					blockingStartTime=time.time()
