@@ -3,6 +3,7 @@ import xlrd
 import numpy as np
 from openpyxl import Workbook
 import os
+import glob
 
 def convertCsv2Xlsx(file_loc):
     wb = Workbook()
@@ -16,6 +17,7 @@ def convertCsv2Xlsx(file_loc):
                     cell = sheet.cell(row=r+1, column=idx+1)
                     cell.value = val
     wb.save("position.xlsx")
+    return "position.xlsx"
 
 def getColumninExcel(columnNumber):
     excelData = []
@@ -24,9 +26,9 @@ def getColumninExcel(columnNumber):
         newData = np.array(excelData[1:]).astype(np.float)
     return newData
 
-def setFileLocation():
-    file_location = "os.path.dirname(os.path.abspath(__file__))" + "/position.csv"
-excelFile = "position.xlsx"
+
+file_location = "C:/Users/Happy/PycharmProjects/HMM_DataExtraction/position.csv"
+excelFile = convertCsv2Xlsx(file_location)
 workbook = xlrd.open_workbook(excelFile)
 sheet = workbook.sheet_by_index(0)
 L = sheet.nrows
