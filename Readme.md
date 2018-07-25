@@ -9,3 +9,5 @@
 ###### Task 5: Need to develop a socket communication with the middleware so that the shades and the lights can be controlled via commands.
 ###### The last task would be regression testing of the system.
 ###### Deadline: 6/7/2018 (Tentative) for development.
+
+![alt text](https://raw.githubusercontent.com/Pradeepcbk/Gesture-Recognition-and-controlling-an-automation-environment/develop/img.png)
