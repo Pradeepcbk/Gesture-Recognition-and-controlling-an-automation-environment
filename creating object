@@ -1,0 +1,23 @@
+To check if its connecting to smart lab network
+
+elias.smartlab/JavaWebStarts/en.html
+
+go to path of Smartlab in cmd and type startGP(windows) or cat startGP (linux)
+copy the path
+java -classpath .:log4j-core-2.1.jar:log4j-api-2.1.jar:SmartLab-full.jar de.mmis.utilities.genericPublisher.GenericPublisherMain 
+replace : to ;
+
+
+object foo 10
+socket portno.
+http
+http://localhost:62709/call?(toString)
+
+object Lamp4 '($java-object (de.mmis.devices.eib.devices.LampImpl "1/1/4" "1/4/4" "1/3/4" "1/5/4" "1/2/4" false))'
+
+addDevice Class ID Methodcall
+addDevice de.mmis.devices.eib.EIB EIBGateway "(setEIBGateway @PROXY @ID)" Socket
+http
+http://localhost:62895/call?(setPowerStatus false) // turns OFF lamp
+
+http://localhost:62895/call?(setPowerStatus true) //turns ON lamp
