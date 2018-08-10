@@ -4,10 +4,12 @@ from flask_sockets import Sockets
 import os
 import time
 import Training as learn
+
 app = Flask(__name__)
 sockets = Sockets(app)
 @sockets.route('/accelerometer')
 def echo_socket(ws):
+	print("hello")
 #############################################################################################################
 #
 #
@@ -42,7 +44,7 @@ def echo_socket(ws):
 	#####
 	i=0
 	c = False
-	fileName=""
+	global fileName
 	print("\n\n\n\n\n\n\n\n\n\n\n\nWaiting for New Gesture Start\n")
 #######################
 	while True:
@@ -57,7 +59,7 @@ def echo_socket(ws):
 		if ((not cycle) & blocked):
 			delay = 0.0
 			waiting = False			
-			if ((end - blockingStartTime)>3.0):
+			if ((end - blockingStartTime)>2.0):
 				blocked = False
 				if released:
 					print("\n\n\n\nWaiting for a New Gesture Start\n")
@@ -113,16 +115,13 @@ def echo_socket(ws):
 				
 			else:
 				if not c:
-					fileName = "ACC_"+ str(i)+".csv"
+					fileName = "ACC.csv"
 					i =i + 1
-					if os.path.isfile(fileName) == False:
-						f=open(fileName,"w+")
-						print>>f,message
-						f.close()
-						c = True
-						numReadings = 1
-					else:
-						print("PLEASE REMOVE EXISTING FILES")
+					f=open(fileName,"a")
+					print>>f,message
+					f.close()
+					c = True
+					numReadings = 1
 	
 
 				else:
@@ -140,7 +139,8 @@ def echo_socket(ws):
 					print("Gesture Saved Successfully\nTotal Number of Useful Readings =%4d  (@Gtime=%.2fs)\n\nTOTAL No of Recorded Gestures = %4d  \n\n" % ((numReadings -140),Gtime,i))
 					say = str(i)
 					os.system('spd-say "Successfull"')
-					learn.learning_algorithm(filename)
+					learn.learning_algorithm("ACC.csv")
+					os.remove("ACC.csv")
 					blocked = True
 					blockingStartTime=time.time()
 				else:
@@ -161,7 +161,7 @@ def echo_socket(ws):
 @app.route('/')
 def hello():
 	return 'Hello World!'
-
+	fileName=""
 if __name__ == "__main__":
 	a=0
 	from gevent import pywsgi
