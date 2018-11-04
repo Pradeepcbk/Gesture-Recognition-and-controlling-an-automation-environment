@@ -8,6 +8,7 @@
 ###### Task 4: Need to collaborate with other teams in order to develop the logic for recognize the positional zone of the user in the smart lab.
 ###### Task 5: Need to develop a socket communication with the middleware so that the shades and the lights can be controlled via commands.
 ###### The last task would be regression testing of the system.
-###### Deadline: 6/7/2018 (Tentative) for development.
+###### Deadline: 31/8/2018 for development.
+###### Presentation: https://www.slideshare.net/PradeepSiddagangaiah/presentation-121805170
 
 ![Screenshot](Github.PNG)
