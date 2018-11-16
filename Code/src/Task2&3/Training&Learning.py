@@ -1,5 +1,4 @@
-# Embedded file name: /home/ubuntu/Desktop/Training.py
-import Gesture_Recognition_original as code
+import Feature_Extraction as code
 import numpy as np
 import xlrd
 from sklearn import svm

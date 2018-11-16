@@ -1,7 +1,7 @@
 import xlsxwriter
 import numpy as np
 import xlrd
-import sample_plot_fe as convert
+import sample_plot as convert
 import math
 from scipy.fftpack import fft, ifft
 from scipy import stats
@@ -13,18 +13,16 @@ Total_data = 302
 
 feature = np.empty([3, 9, 5], dtype=float)
 gesture = np.empty([Total_data, 3, 9, 5], dtype=float)
-X = np.empty([Total_data, 135], dtype=float)
+X = np.empty([1, 135], dtype=float)
 
 def sum(a, axes, i, initial, final):
     sum = 0
     for j in range(initial,final + 1):
-	sum = sum + a[axes,i ,j]
+        sum = sum + a[axes,i ,j]
     return sum
 
-for n in range(0,Total_data):
-	file_location = '/home/pradeep/Documents/Project_Smart_Lab/Gesture-Recognition-and-controlling-an-automation-environment-master/Code/src/Task1/Training_Data/ACC_'+str(n)+'.csv'
-	#excelfile = '/home/pradeep/Documents/Project_Smart_Lab/Gesture-Recognition-and-controlling-an-automation-environment-master/Code/src/Task2/ACC.xlsx'
-	excelfile = convert.convert_csv_to_xlsx(file_location,n)
+def Gesture(file_location):
+	excelfile = convert.convert_csv_to_xlsx(file_location)
 	workbook = xlrd.open_workbook(excelfile)
 	sheet = workbook.sheet_by_index(0)
 	s = 0  # Segment no
@@ -216,74 +214,22 @@ for n in range(0,Total_data):
 	for a in range(0,axis):
 		for i in range(0,kmax):
 		    feature[a,i,0] = u[a,i]
-		    print('gesture = ' + str(gesture[n, a, i, 0]) +str(n)+str(a)+str(i)+str(0)+ ' feature = ' + str(feature[a,i,0]))
+		    #print('gesture = ' + str(gesture[n, a, i, 0]) +str(a)+str(i)+str(0)+ ' feature = ' + str(feature[a,i,0]))
 		    feature[a,i,1] = energy[a,i]
-		    print('gesture = ' + str(gesture[n, a, i, 1]) +str(n)+str(a)+str(i)+str(1)+ ' feature = ' + str(feature[a, i, 1]))
+		    #print('gesture = ' + str(gesture[n, a, i, 1]) +str(a)+str(i)+str(1)+ ' feature = ' + str(feature[a, i, 1]))
 		    feature[a,i,2] = entropy[a,i]
-		    print('gesture = ' + str(gesture[n, a, i, 2]) +str(n)+str(a)+str(i)+str(2)+ ' feature = ' + str(feature[a, i, 2]))
+		    #print('gesture = ' + str(gesture[n, a, i, 2]) +str(a)+str(i)+str(2)+ ' feature = ' + str(feature[a, i, 2]))
 		    feature[a,i,3] = standard_deviation[a,i]
-		    print('gesture = ' + str(gesture[n, a, i, 3]) +str(n)+str(a)+str(i)+str(3)+ ' feature = ' + str(feature[a, i, 3]))
+		    #print('gesture = ' + str(gesture[n, a, i, 3]) +str(a)+str(i)+str(3)+ ' feature = ' + str(feature[a, i, 3]))
 		    feature[a,i,4] = corelation[a,i]
-		    print('gesture = ' + str(gesture[n, a, i, 4]) +str(n)+str(a)+str(i)+str(4)+ ' feature = ' + str(feature[a, i, 4]))
-		    if(n==26):
-			feature[2,5,2] = 0
-
+		    #print('gesture = ' + str(gesture[n, a, i, 4]) +str(a)+str(i)+str(4)+ ' feature = ' + str(feature[a, i, 4]))
+		    #if(n==26):
+			#feature[2,5,2] = 0
+	
 	feature_count = 0
 	for a in range(0, axis):
 		for i in range(0, kmax):
 		    for j in range(0, number_of_features):
-			X[n, feature_count] = feature[a, i, j]
+		        X[0, feature_count] = feature[a, i, j]
 			feature_count = feature_count + 1
-
-	workbook = xlsxwriter.Workbook('arrays.xlsx')
-	worksheet1 = workbook.add_worksheet()
-	row = 0
-
-	for n, data in enumerate(X):
-	    worksheet1.write_column(row, n, data)
-	workbook.close()
-
-'''
-workbook = xlsxwriter.Workbook('arrays.xlsx')
-worksheet1 = workbook.add_worksheet()
-worksheet2 = workbook.add_worksheet()
-worksheet3 = workbook.add_worksheet()
-
-worksheet4 = workbook.add_worksheet()
-worksheet5 = workbook.add_worksheet()
-worksheet6 = workbook.add_worksheet()
-worksheet7 = workbook.add_worksheet()
-worksheet8 = workbook.add_worksheet()
-worksheet9 = workbook.add_worksheet()
-
-row = 0
-
-for col, data in enumerate(frame[0]):
-    worksheet1.write_column(row, col, data)
-
-row = 0
-
-for col, data in enumerate(frame[1]):
-    worksheet2.write_column(row, col, data)
-
-row = 0
-
-for col, data in enumerate(frame[2]):
-    worksheet3.write_column(row, col, data)
-
-row = 0
-
-for col, data in enumerate(frame[1]):
-    worksheet2.write_column(row, col, data)
-
-row = 0
-
-for col, data in enumerate(frame[2]):
-    worksheet3.write_column(row, col, data)
-
-workbook.close()
-
-#print('i = ' + str(i) + ' k1='+str(k1) + ' n1 =' + str(n1) + ' k2='+str(k2) + ' n2 =' + str(n2) + ' s=' +str(s) +' i%LS=' + str(i%LS) + ' L = ' + str(L) +' s%2=' + str(s%2))
-#print('Final data:''k1 =' + str(k1) + ' n1 = ' + str(n1) +' k2 =' + str(k2) + ' n2 = ' + str(n2) +' rxk1[k1,n1] = ' + str(rxk1[k1,n1-1]) + ' rxk2[k2,n2] = ' + str(rxk2[k2,n2-1]) + ' Ax[i] = ' + str(Ax[i]) + ' i = ' + str(i)+ ' s=' +str(s))
-
-'''
+	return X
